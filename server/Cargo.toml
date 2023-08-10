@@ -1,0 +1,19 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+debug = true
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
+
+[dependencies]
+bevy = { version = "0.11.0", features = ["dynamic_linking"] }
+bevy_renet = "0.0.9"
+lib = { path = "../lib" }
+serde = "1.0.183"
