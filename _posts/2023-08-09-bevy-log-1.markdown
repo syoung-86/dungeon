@@ -45,7 +45,7 @@ While achieving the rudimentary functionality of these mechanics is well within 
 
 # Setup
 So for my basic project setup I will be using a Cargo workspace with 3 crates:  
-dungeon/Cargo.toml:
+dungeon/Cargo.toml:  
 {% highlight toml %}
 [workspace]
 resolver = "2"
