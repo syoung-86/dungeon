@@ -66,3 +66,37 @@ debug = true
 opt-level = 3
 
 {% endhighlight %}
+
+# The server
+The first thing we need to get a game server running is adding MinimalPlugins, then setting up the game tick rate which will control
+how everything runs on the server side:  
+{% highlight rust %} 
+// server/server.rs
+use bevy::prelude::*;
+use lib::GameTick;
+use std::time::Duration;
+
+fn main(){
+    let mut app = App::new();
+    app.add_plugins(MinimalPlugins);
+    app.insert_resource(FixedTime::new(Duration::from_millis(100)));
+    app.insert_resource(GameTick::default());
+    app.add_systems(FixedUpdate, tick);
+    app.run();
+}
+
+fn tick(mut tick: ResMut<GameTick>) {
+    tick.tick += 1;
+}
+// lib/lib.rs
+use serde::{Deserialize, Serialize};
+use bevy::prelude::*;
+
+#[derive(Copy, Clone, Default, Serialize, Deserialize, Eq, PartialEq, Debug, Resource)]
+pub struct GameTick {
+    pub tick: u64,
+}
+
+{% endhighlight %}
+
+
