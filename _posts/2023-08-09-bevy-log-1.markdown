@@ -41,3 +41,28 @@ So before I get to ahead of myself I'll lay out what the basic idea of my game i
 When picturing the gameplay dynamics for my upcoming project, I envision a character navigating through labyrinthine corridors, interacting meaningfully with the surroundings. This includes actions such as opening doors and chests, manipulating levers, collecting various items, and of course, engaging in a combat system – all set within the mysterious confines of a dungeon. At a glance, this might seem reminiscent of foundational roguelike elements.
 
 While achieving the rudimentary functionality of these mechanics is well within reach—given that I've implemented 90% of them in the prior version of this game—the real challenge lies in crafting everything in such a way that facilitates the seamless integration of playable content.
+
+
+# Setup
+So for my basic project setup I will be using a Cargo workspace with 3 crates:  
+dungeon/Cargo.toml:
+{% highlight toml %}
+[workspace]
+resolver = "2"
+
+members = [
+"client",
+"server",
+"lib",
+]
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+debug = true
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
+
+{% endhighlight %}
