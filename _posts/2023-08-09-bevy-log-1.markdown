@@ -1,0 +1,31 @@
+# Bevy 0.11: A Closer Look
+
+A few weeks back, Bevy 0.11 was unveiled, marking a notable step forward in improving system scheduling ergonomics. Since then, most of the crates I regularly use have transitioned to this new version. With this shift, I'm considering revisiting a game I crafted that spans roughly 2,000 lines of code. But as I set out on this journey, there are a handful of initial decisions I'm thinking about revising.
+
+For instance, this segment concerning input could use some tidying up:
+
+{% highlight rust %}
+match left_click {
+LeftClick::Pickup(Some(e)) => {
+if let Some(server_entity) = network_mapping.client.remove(e) {
+player_commands.send(PlayerCommand::LeftClick(
+LeftClick::Pickup(Some(server_entity)),
+*tile,
+));
+}
+//delete_writer.send(DeleteMe(*e));
+commands.entity(*e).despawn_recursive();
+}
+LeftClick::Attack(e) => {
+if let Some(server_entity) = network_mapping.client.get(e) {
+println!("attack");
+player_commands.send(PlayerCommand::LeftClick(LeftClick::Attack(*server_entity), *tile));
+}
+}
+...
+{% endhighlight %}
+
+It's pretty clear that juggling three levels of enums for a basic input event is less than ideal. Besides this, I'm excited to test out some crates, like bevy_proto, which promises to make adding content to the game smoother. I'm also toying with the idea of crafting a basic editor, though I'm weighing the effort that might involve.
+
+
+# The Game
