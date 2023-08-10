@@ -1,4 +1,4 @@
-# Bevy 0.11: A Closer Look
+## Bevy 0.11: A Closer Look
 
 A few weeks back, Bevy 0.11 was unveiled, marking a notable step forward in improving system scheduling ergonomics. Since then, most of the crates I regularly use have transitioned to this new version. With this shift, I'm considering revisiting a game I crafted that spans roughly 2,000 lines of code. But as I set out on this journey, there are a handful of initial decisions I'm thinking about revising.
 
@@ -29,3 +29,15 @@ It's pretty clear that juggling three levels of enums for a basic input event is
 
 
 # The Game
+
+So before I get to ahead of myself I'll lay out what the basic idea of my game is:
+* 3D  
+* Multiplayer  
+* isometric style camera  
+* Tilebased  
+
+# Envisioning Gameplay in the Depths of a Dungeon
+
+When picturing the gameplay dynamics for my upcoming project, I envision a character navigating through labyrinthine corridors, interacting meaningfully with the surroundings. This includes actions such as opening doors and chests, manipulating levers, collecting various items, and of course, engaging in a combat system – all set within the mysterious confines of a dungeon. At a glance, this might seem reminiscent of foundational roguelike elements.
+
+While achieving the rudimentary functionality of these mechanics is well within reach—given that I've implemented 90% of them in the prior version of this game—the real challenge lies in crafting everything in such a way that facilitates the seamless integration of playable content.
