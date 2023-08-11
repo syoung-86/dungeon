@@ -1,0 +1,25 @@
+2: New Version Struggles
+
+The bevy_renet crate, which I will be using to manage networking, has been completely rewritten since the last time I used it. Unfortunately, it seems the examples haven't been updated to match the new API. However, after some trawling through the code, I've managed to get clients to connect to the server and send messages back and forth. The code is located here and here.
+
+Renet is a library that allows you to send messages back and forth between a server and a client through channels. These channels can have a few different types and configuration options. So, the first decision I have to make is: how should I structure my channels? Here's what I've decided:
+
+{% highlight rust %}
+pub enum ClientChannel {
+Command,
+}
+
+pub enum ServerChannel {
+Spawn,
+Despawn,
+Update,
+Load,
+ServerMessages,
+Tick,
+ServerEvents,
+}
+{% endhighlight %}
+
+To start, the Client only has a single channel, Command. One channel that's missing is for sending text messages. The server, on the other hand, has several channels, but they should all be pretty self-explanatory.
+
+The Client channels will all be UnreliableOrdered (we don't care about old inputs, at least not as much as having the full RTT). The Server Channels are mostly ReliableOrdered, except Tick and Update, which are unreliable. Load used to be Chunk, but that was removed in the new renet update. I'm guessing it became redundant now that you can customize how many bytes a message can be. I'm hopeful this setup works and that I won't run into any issues!
