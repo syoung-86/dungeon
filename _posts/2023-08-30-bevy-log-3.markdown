@@ -10,7 +10,7 @@ So to setup renet you need 3 things.
 // Client
     app.add_plugins(RenetClientPlugin);
     app.add_plugins(NetcodeClientPlugin);
-{% end highlight %}
+{% endhighlight %}
 
 # The Client and Server Channels
 {% highlight rust %}
@@ -137,7 +137,7 @@ impl ServerChannel {
     }
 }
 
-{% end highlight %}
+{% endhighlight %}
 
 # a function that gets us the client/server and transport resources
 {% highlight rust %}
@@ -206,7 +206,7 @@ pub fn new_renet_client() -> (RenetClient, NetcodeClientTransport) {
     app.insert_resource(transport);
 
 
-{% end highlight %}
+{% endhighlight %}
 
 So now renet is all setup I'll start off by just sending the server tick to the client:
 {% highlight rust %}
