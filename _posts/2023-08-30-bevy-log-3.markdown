@@ -1,6 +1,7 @@
 ## Renet
 
-So to setup renet you need 3 things.
+So to setup renet you need 3 things, add the plugins, configure the channels then have a function that configures the client/server resources which also get added to app, once that is done you are able to interact with the client/server simply by querying the resource like you would any other bevy resource.
+
 
 # Adding the plugins
 {% highlight rust %}
