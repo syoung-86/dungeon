@@ -230,6 +230,6 @@ fn receive_tick(mut commands: Commands, mut client: ResMut<RenetClient>) {
         commands.insert_resource(GameTick { tick });
     }
 }
-
+{% endhighlight %}
 
 
