@@ -1,13 +1,16 @@
 use bevy::prelude::*;
 use bevy_renet::{
-    renet::{DefaultChannel, RenetServer, ServerEvent},
+    renet::{RenetServer, ServerEvent},
     transport::NetcodeServerPlugin,
     RenetServerPlugin,
 };
 use connection::new_renet_server;
-use lib::{GameTick, ServerChannel};
+use lib::{channels::ServerChannel, resources::GameTick};
 use std::time::Duration;
+
 pub mod connection;
+pub mod recieve;
+pub mod sync;
 
 fn main() {
     let mut app = App::new();
@@ -20,6 +23,7 @@ fn main() {
     app.insert_resource(server);
     app.insert_resource(transport);
     app.add_systems(FixedUpdate, tick);
+    app.add_systems(FixedUpdate, send_tick);
     app.add_systems(Update, handle_events_system);
     app.run();
 }
@@ -28,17 +32,14 @@ fn tick(mut tick: ResMut<GameTick>) {
     tick.tick += 1;
 }
 
-fn dummy() {}
+fn send_tick(tick: Res<GameTick>, mut server: ResMut<RenetServer>){
+    let message = bincode::serialize(&[tick.tick]).unwrap();
+    server.broadcast_message(ServerChannel::Tick, message)
+
+}
 fn handle_events_system(
-    mut server: ResMut<RenetServer>,
     mut server_events: EventReader<ServerEvent>,
 ) {
-    //while let Some(event) = server.get_event() {
-        //println!("event: {:?}", event);
-        //server.broadcast_message(
-            //ServerChannel::ServerMessages,
-            //"server message".as_bytes().to_vec(),
-        //);
         for event in server_events.iter() {
             match event {
                 ServerEvent::ClientConnected { client_id } => {
@@ -50,4 +51,3 @@ fn handle_events_system(
             }
         }
     }
-//}

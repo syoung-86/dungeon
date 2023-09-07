@@ -1,24 +1,15 @@
 use std::{
-    net::{SocketAddr, UdpSocket, Ipv4Addr},
+    net::{Ipv4Addr, SocketAddr, UdpSocket},
     time::SystemTime,
 };
 
-use bevy::prelude::*;
-use bevy_renet::{
-    renet::{
-        transport::{
-            ClientAuthentication, NetcodeClientTransport, NetcodeServerTransport,
-            NetcodeTransportError, ServerAuthentication, ServerConfig,
-        },
-        ConnectionConfig, RenetClient,
-    },
-    transport::NetcodeClientPlugin,
-    RenetClientPlugin,
+use bevy_renet::renet::{
+    transport::{ClientAuthentication, NetcodeClientTransport},
+    ConnectionConfig, RenetClient,
 };
-use lib::{connection_config, ClientChannel, ServerChannel, PROTOCOL_ID};
+use lib::channels::{ClientChannel, ServerChannel, PROTOCOL_ID};
 
 pub fn new_renet_client() -> (RenetClient, NetcodeClientTransport) {
-
     let server_channels_config = ServerChannel::channels_config();
     let client_channels_config = ClientChannel::channels_config();
     let port = 4000;

@@ -7,7 +7,7 @@ use bevy_renet::renet::{
     transport::{NetcodeServerTransport, ServerAuthentication, ServerConfig},
     ConnectionConfig, RenetServer,
 };
-use lib::{connection_config, ClientChannel, ServerChannel, PROTOCOL_ID};
+use lib::channels::{ClientChannel, ServerChannel, PROTOCOL_ID};
 
 pub fn new_renet_server() -> (RenetServer, NetcodeServerTransport) {
     let server_channels_config = ServerChannel::channels_config();
